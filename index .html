@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Results — Sociopolitical Orientation & Sport Motivation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f5f6fa; color: #2d3436; line-height: 1.7; }
+
+  .hero {
+    background: linear-gradient(135deg, #1e2761 0%, #2e4057 50%, #3d5a80 100%);
+    color: white; padding: 60px 24px 50px; text-align: center;
+  }
+  .hero h1 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; max-width: 800px; margin: 0 auto 16px; line-height: 1.3; }
+  .hero p { font-size: 0.95rem; opacity: 0.85; max-width: 600px; margin: 0 auto; }
+  .hero .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 6px 16px; font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 0.5px; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+  .section { background: white; border-radius: 16px; padding: 32px; margin: 24px auto; max-width: 900px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .section h2 { font-size: 1.3rem; font-weight: 700; color: #1e2761; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+  .section h2 .icon { width: 32px; height: 32px; background: #e8ecf4; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+  .section p { font-size: 0.92rem; color: #555; margin-bottom: 12px; }
+  .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
+
+  .findings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 20px 0; }
+  .finding-card { background: #f8f9fc; border-radius: 12px; padding: 20px; border-left: 4px solid #1e2761; }
+  .finding-card.negative { border-left-color: #e74c3c; }
+  .finding-card.unexpected { border-left-color: #f39c12; }
+  .finding-card .stat { font-size: 1.8rem; font-weight: 700; color: #1e2761; }
+  .finding-card.negative .stat { color: #e74c3c; }
+  .finding-card.unexpected .stat { color: #f39c12; }
+  .finding-card .label { font-size: 0.85rem; font-weight: 600; margin-top: 4px; color: #2d3436; }
+  .finding-card .desc { font-size: 0.8rem; color: #777; margin-top: 6px; }
+
+  .table-wrapper { overflow-x: auto; margin: 16px 0; border-radius: 10px; border: 1px solid #e8ecf4; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  thead th { background: #1e2761; color: white; padding: 12px 16px; text-align: left; font-weight: 600; font-size: 0.82rem; }
+  tbody td { padding: 11px 16px; border-bottom: 1px solid #f0f0f0; }
+  tbody tr:hover { background: #f8f9fc; }
+  tbody tr:last-child td { border-bottom: none; }
+  .sig { color: #1e2761; font-weight: 600; }
+  .sig-neg { color: #e74c3c; font-weight: 600; }
+  .sig-unexpected { color: #f39c12; font-weight: 600; }
+  .ns { color: #aaa; }
+  .group-header td { background: #f0f2f8; font-weight: 600; font-size: 0.82rem; color: #1e2761; }
+
+  .hypothesis-box { display: flex; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
+  .hyp-card { flex: 1; min-width: 250px; padding: 20px; border-radius: 12px; background: #f0faf0; border: 1px solid #c8e6c9; }
+  .hyp-card .tag { display: inline-block; background: #4caf50; color: white; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 10px; margin-bottom: 8px; }
+  .hyp-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+  .hyp-card p { font-size: 0.82rem; color: #666; margin: 0; }
+
+  .sample-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+  .sample-stat { text-align: center; padding: 16px; background: #f8f9fc; border-radius: 10px; }
+  .sample-stat .num { font-size: 1.6rem; font-weight: 700; color: #1e2761; }
+  .sample-stat .lbl { font-size: 0.78rem; color: #888; margin-top: 4px; }
+
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; margin: 16px 0; padding: 14px 18px; background: #f8f9fc; border-radius: 10px; font-size: 0.8rem; color: #666; }
+  .legend span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot.pos { background: #1e2761; } .dot.neg { background: #e74c3c; } .dot.unexp { background: #f39c12; } .dot.ns-dot { background: #ccc; }
+
+  .note { background: #fff8e1; border-left: 4px solid #f39c12; padding: 14px 18px; border-radius: 0 10px 10px 0; font-size: 0.85rem; color: #666; margin: 16px 0; }
+  .note strong { color: #f39c12; }
+  .desc-group { margin: 16px 0; }
+  .desc-group h4 { font-size: 0.88rem; font-weight: 600; color: #2e4057; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid #e8ecf4; }
+  .footer { text-align: center; padding: 40px 20px; font-size: 0.8rem; color: #aaa; }
+  .footer a { color: #1e2761; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">6034SPO Independent Research Project &middot; April 2026</div>
+  <h1>A Cross-Sectional Study of Sociopolitical, Motivational, and Sport-Related Orientations in Physically Active Adults</h1>
+  <p>Junseok Jang &middot; Coventry University &middot; Sport and Exercise Science BSc</p>
+</div>
+
+<div class="container">
+
+  <!-- Participants -->
+  <div class="section">
+    <h2><span class="icon">👥</span> Participants</h2>
+    <p class="subtitle">Demographic characteristics (N = 83)</p>
+    <div class="sample-grid">
+      <div class="sample-stat"><div class="num">83</div><div class="lbl">Total Participants</div></div>
+      <div class="sample-stat"><div class="num">43 / 40</div><div class="lbl">Male (51.8%) / Female (48.2%)</div></div>
+      <div class="sample-stat"><div class="num">25.0</div><div class="lbl">Mean Age (SD = 5.6)</div></div>
+      <div class="sample-stat"><div class="num">68 (81.9%)</div><div class="lbl">Individual Sports</div></div>
+      <div class="sample-stat"><div class="num">15 (18.1%)</div><div class="lbl">Team Sports</div></div>
+    </div>
+  </div>
+
+  <!-- Key Findings -->
+  <div class="section">
+    <h2><span class="icon">🔑</span> Key Findings at a Glance</h2>
+    <p class="subtitle">Strongest correlations between sociopolitical orientation and sport variables</p>
+    <div class="findings-grid">
+      <div class="finding-card"><div class="stat">r = .41***</div><div class="label">External Regulation</div><div class="desc">p &lt; .001 — Strongest positive association</div></div>
+      <div class="finding-card"><div class="stat">r = .39***</div><div class="label">Win Orientation</div><div class="desc">p &lt; .001 — Victory-focused disposition</div></div>
+      <div class="finding-card negative"><div class="stat">r = −.33**</div><div class="label">Perceived Choice</div><div class="desc">p = .002 — Lower perceived autonomy</div></div>
+      <div class="finding-card unexpected"><div class="stat">r = .25*</div><div class="label">Intrinsic Regulation</div><div class="desc">p = .021 — Unexpected positive finding</div></div>
+    </div>
+    <div class="legend">
+      <span><span class="dot pos"></span> Hypothesised positive (H1)</span>
+      <span><span class="dot neg"></span> Hypothesised negative (H2)</span>
+      <span><span class="dot unexp"></span> Unexpected finding</span>
+      <span><span class="dot ns-dot"></span> Non-significant</span>
+    </div>
+  </div>
+
+  <!-- Hypothesis -->
+  <div class="section">
+    <h2><span class="icon">✅</span> Hypothesis Testing</h2>
+    <div class="hypothesis-box">
+      <div class="hyp-card"><span class="tag">SUPPORTED</span><h4>H1: Positive associations</h4><p>Conservative orientation → higher win orientation (r = .39***), competitiveness (r = .27*), external regulation (r = .41***), and introjected regulation (r = .23*). All significant at p &lt; .05.</p></div>
+      <div class="hyp-card"><span class="tag">SUPPORTED</span><h4>H2: Negative association</h4><p>Conservative orientation → lower perceived choice (r = −.33**, p = .002). More conservative individuals reported lower feelings of volition in sport.</p></div>
+    </div>
+    <div class="note"><strong>Unexpected Finding:</strong> Intrinsic regulation showed a significant positive correlation (r = .25*, p = .021), suggesting conservative individuals also experience genuine enjoyment in sport — not predicted by the hypotheses.</div>
+  </div>
+
+  <!-- Internal Consistency — Table 2 -->
+  <div class="section">
+    <h2><span class="icon">📊</span> Internal Consistency</h2>
+    <p class="subtitle">Cronbach's alpha (α) for all study measures — Table 2</p>
+
+    <div class="desc-group"><h4>Sociopolitical Orientation</h4>
+      <div class="table-wrapper"><table><thead><tr><th>Measure</th><th>α</th><th>Items</th><th>Note</th></tr></thead><tbody>
+        <tr><td>Sociopolitical Orientation (ESS)</td><td>.70</td><td>1</td><td>From ESS documentation (Curtice &amp; Bryson, 2003)</td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="desc-group"><h4>Intrinsic Motivation Inventory (IMI)</h4>
+      <div class="table-wrapper"><table><thead><tr><th>Subscale</th><th>α</th><th>Items</th></tr></thead><tbody>
+        <tr><td>Interest / Enjoyment</td><td>.88</td><td>5</td></tr>
+        <tr><td>Perceived Competence</td><td>.90</td><td>5</td></tr>
+        <tr><td>Perceived Choice</td><td>.69</td><td>5</td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="desc-group"><h4>Sport Motivation Scale-II (SMS-II)</h4>
+      <div class="table-wrapper"><table><thead><tr><th>Subscale</th><th>α</th><th>Items</th></tr></thead><tbody>
+        <tr><td>Intrinsic Regulation</td><td>.76</td><td>3</td></tr>
+        <tr><td>Integrated Regulation</td><td>.83</td><td>3</td></tr>
+        <tr><td>Identified Regulation</td><td>.78</td><td>3</td></tr>
+        <tr><td>Introjected Regulation</td><td>.65</td><td>3</td></tr>
+        <tr><td>External Regulation</td><td>.76</td><td>3</td></tr>
+        <tr><td>Amotivation</td><td>.66</td><td>3</td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="desc-group"><h4>Sport Orientation Questionnaire (SOQ)</h4>
+      <div class="table-wrapper"><table><thead><tr><th>Subscale</th><th>α</th><th>Items</th></tr></thead><tbody>
+        <tr><td>Competitiveness</td><td>.93</td><td>13</td></tr>
+        <tr><td>Win Orientation</td><td>.84</td><td>6</td></tr>
+        <tr><td>Goal Orientation</td><td>.87</td><td>6</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+
+  <!-- Full Correlation Table — Table 3 -->
+  <div class="section">
+    <h2><span class="icon">📋</span> Full Correlation Matrix</h2>
+    <p class="subtitle">Descriptive statistics and Pearson correlations with sociopolitical orientation — Table 3 (N = 83)</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Variable</th><th>M</th><th>SD</th><th>r with SPO</th><th>p</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr class="group-header"><td colspan="6">Sociopolitical Orientation</td></tr>
+          <tr><td>1. SPO</td><td>4.33</td><td>1.51</td><td>—</td><td>—</td><td style="font-size:0.8rem;color:#888;">Slightly above scale midpoint (4.0)</td></tr>
+
+          <tr class="group-header"><td colspan="6">Intrinsic Motivation Inventory (IMI)</td></tr>
+          <tr><td>2. Interest / Enjoyment (IMI-I)</td><td>5.45</td><td>1.10</td><td class="ns">−.00</td><td class="ns">.982</td><td class="ns">Not significant</td></tr>
+          <tr><td>3. Perceived Competence (IMI-C)</td><td>5.19</td><td>1.21</td><td class="ns">.10</td><td class="ns">.350</td><td class="ns">Not significant</td></tr>
+          <tr><td>4. Perceived Choice (IMI-Ch)</td><td>4.70</td><td>1.18</td><td class="sig-neg">−.33</td><td class="sig-neg">.002 **</td><td class="sig-neg">H2 supported ✓</td></tr>
+
+          <tr class="group-header"><td colspan="6">Sport Motivation Scale-II (SMS-II)</td></tr>
+          <tr><td>5. Intrinsic Regulation (SMS-In)</td><td>5.17</td><td>1.12</td><td class="sig-unexpected">.25</td><td class="sig-unexpected">.021 *</td><td class="sig-unexpected">Unexpected finding</td></tr>
+          <tr><td>6. Integrated Regulation (SMS-Ig)</td><td>4.71</td><td>1.32</td><td class="ns">.16</td><td class="ns">.146</td><td class="ns">Not significant</td></tr>
+          <tr><td>7. Identified Regulation (SMS-Id)</td><td>5.37</td><td>1.14</td><td class="ns">.17</td><td class="ns">.115</td><td class="ns">Not significant</td></tr>
+          <tr><td>8. Introjected Regulation (SMS-Ij)</td><td>4.43</td><td>1.25</td><td class="sig">.23</td><td class="sig">.035 *</td><td class="sig">H1 supported ✓</td></tr>
+          <tr><td>9. External Regulation (SMS-E)</td><td>2.88</td><td>1.58</td><td class="sig">.41</td><td class="sig">&lt;.001 ***</td><td class="sig">H1 supported ✓ (strongest)</td></tr>
+          <tr><td>10. Amotivation (SMS-A)</td><td>2.97</td><td>1.36</td><td class="ns">.20</td><td class="ns">.074</td><td class="ns">Not significant</td></tr>
+
+          <tr class="group-header"><td colspan="6">Sport Orientation Questionnaire (SOQ)</td></tr>
+          <tr><td>11. Competitiveness (SOQ-C)</td><td>4.78</td><td>1.27</td><td class="sig">.27</td><td class="sig">.014 *</td><td class="sig">H1 supported ✓</td></tr>
+          <tr><td>12. Win Orientation (SOQ-W)</td><td>4.68</td><td>1.20</td><td class="sig">.39</td><td class="sig">&lt;.001 ***</td><td class="sig">H1 supported ✓</td></tr>
+          <tr><td>13. Goal Orientation (SOQ-G)</td><td>5.44</td><td>1.07</td><td class="sig">.22</td><td class="sig">.047 *</td><td class="sig">Positive</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend"><span>* p &lt; .05</span><span>** p &lt; .01</span><span>*** p &lt; .001</span></div>
+    <p style="font-size:0.82rem;color:#888;margin-top:12px;">7 of 12 sport-related variables showed significant correlations with sociopolitical orientation. Pearson correlations computed using Jamovi (v2.7.17).</p>
+  </div>
+
+  <!-- Notable Intercorrelations -->
+  <div class="section">
+    <h2><span class="icon">🔗</span> Notable Intercorrelations</h2>
+    <p class="subtitle">Key relationships among sport-related variables — Table 3</p>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Variable Pair</th><th>r</th><th>p</th></tr></thead>
+        <tbody>
+          <tr><td>Win Orientation ↔ Competitiveness</td><td class="sig">.77</td><td class="sig">&lt;.001 ***</td></tr>
+          <tr><td>Intrinsic ↔ Integrated Regulation</td><td class="sig">.73</td><td class="sig">&lt;.001 ***</td></tr>
+          <tr><td>Intrinsic ↔ Identified Regulation</td><td class="sig">.80</td><td class="sig">&lt;.001 ***</td></tr>
+          <tr><td>Integrated ↔ Identified Regulation</td><td class="sig">.73</td><td class="sig">&lt;.001 ***</td></tr>
+          <tr><td>External Regulation ↔ Perceived Choice</td><td class="sig-neg">−.46</td><td class="sig-neg">&lt;.001 ***</td></tr>
+          <tr><td>Amotivation ↔ Perceived Choice</td><td class="sig-neg">−.52</td><td class="sig-neg">&lt;.001 ***</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Non-significant -->
+  <div class="section">
+    <h2><span class="icon">💡</span> Interpreting Non-Significant Results</h2>
+    <p>Five variables did not reach statistical significance: Interest/Enjoyment (r = −.00, p = .982), Perceived Competence (r = .10, p = .350), Integrated Regulation (r = .16, p = .146), Identified Regulation (r = .17, p = .115), and Amotivation (r = .20, p = .074).</p>
+    <p>The near-zero correlations for Interest/Enjoyment and Perceived Competence suggest that the capacity to experience enjoyment and feel competent in sport may not be shaped by political orientation. Ideological differences appear to influence <em>how</em> motivation is regulated and <em>how</em> competition is approached, rather than fundamental psychological resources for sport engagement.</p>
+    <p style="font-size:0.82rem;color:#999;">Note: The study was powered to detect medium effects (r &ge; .30) with 80% statistical power at &alpha; = .05. Smaller but potentially meaningful associations cannot be ruled out.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Junseok Jang &middot; Coventry University &middot; Sport and Exercise Science BSc</p>
+  <p style="margin-top:6px;">6034SPO Independent Research Project &middot; April 2026</p>
+  <p style="margin-top:6px;font-size:0.75rem;">Contact: <a href="mailto:jangj10@uni.coventry.ac.uk">jangj10@uni.coventry.ac.uk</a></p>
+</div>
+
+</body>
+</html>
